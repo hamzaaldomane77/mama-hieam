@@ -5,40 +5,56 @@ function Footer() {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="bg-gradient-to-br from-white via-cream-beige to-light-orange/20 text-dark-blue mt-auto border-t border-primary-orange/20">
-      <div className="container mx-auto px-4 py-12">
+    <footer className="text-dark-blue mt-auto border-t shadow-lg relative overflow-hidden"
+            style={{ backgroundColor: '#FFFFFF', borderColor: '#F5F5F5' }}>
+      
+      {/* خلفية ملونة طفولية */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-pink-50/20 to-yellow-50/30"></div>
+      
+      {/* عناصر زخرفية */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-5 right-10 w-32 h-32 rounded-full blur-2xl" style={{ backgroundColor: '#A7D8F0', opacity: 0.2 }}></div>
+        <div className="absolute bottom-5 left-10 w-24 h-24 rounded-full blur-2xl" style={{ backgroundColor: '#FADADD', opacity: 0.3 }}></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full blur-2xl" style={{ backgroundColor: '#FFF4B1', opacity: 0.15 }}></div>
+      </div>
+
+      <div className="container mx-auto px-4 py-12 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* قسم اللوغو والوصف */}
           <div className="md:col-span-1">
             <div className="flex items-center mb-4">
               <img src="/logo.png" alt="Mama Hieam Logo" className="h-12 w-auto drop-shadow-md" />
             </div>
-            <p className="text-dark-blue/80 text-sm leading-relaxed">
+            <p className="text-sm leading-relaxed" style={{ color: '#E53935', opacity: 0.8 }}>
               ماما هيام - متجرك المتخصص في ألبسة الأطفال عالية الجودة. نوفر أجمل الملابس والأزياء الأنيقة لأطفالك من جميع الأعمار، بأفضل الأسعار ومع ضمان الجودة والراحة.
             </p>
           </div>
 
           {/* قسم الروابط السريعة */}
           <div className="md:col-span-1">
-            <h3 className="text-lg font-bold mb-4 text-primary-orange">الروابط السريعة</h3>
+            <h3 className="text-lg font-bold mb-4" style={{ color: '#E53935' }}>الروابط السريعة</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/" className="text-dark-blue/70 hover:text-primary-orange transition-colors duration-200 text-sm">
+                <Link to="/" className="transition-colors duration-200 text-sm hover:opacity-80"
+                      style={{ color: '#E53935', opacity: 0.7 }}>
                   الرئيسية
                 </Link>
               </li>
               <li>
-                <Link to="/categories" className="text-dark-blue/70 hover:text-primary-orange transition-colors duration-200 text-sm">
+                <Link to="/categories" className="transition-colors duration-200 text-sm hover:opacity-80"
+                      style={{ color: '#E53935', opacity: 0.7 }}>
                   التصنيفات
                 </Link>
               </li>
               <li>
-                <Link to="/products" className="text-dark-blue/70 hover:text-primary-orange transition-colors duration-200 text-sm">
+                <Link to="/products" className="transition-colors duration-200 text-sm hover:opacity-80"
+                      style={{ color: '#E53935', opacity: 0.7 }}>
                   المنتجات
                 </Link>
               </li>
               <li>
-                <Link to="/branches" className="text-dark-blue/70 hover:text-primary-orange transition-colors duration-200 text-sm">
+                <Link to="/branches" className="transition-colors duration-200 text-sm hover:opacity-80"
+                      style={{ color: '#E53935', opacity: 0.7 }}>
                   أفرعنا
                 </Link>
               </li>
@@ -47,32 +63,34 @@ function Footer() {
 
           {/* قسم الخدمات */}
           <div className="md:col-span-1">
-            <h3 className="text-lg font-bold mb-4 text-primary-orange">الخدمات</h3>
+            <h3 className="text-lg font-bold mb-4" style={{ color: '#E53935' }}>الخدمات</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/offers" className="text-dark-blue/70 hover:text-primary-orange transition-colors duration-200 text-sm">
+                <Link to="/offers" className="transition-colors duration-200 text-sm hover:opacity-80"
+                      style={{ color: '#E53935', opacity: 0.7 }}>
                   العروض والتخفيضات
                 </Link>
               </li>
               <li>
-                <Link to="/featured-products" className="text-dark-blue/70 hover:text-primary-orange transition-colors duration-200 text-sm">
+                <Link to="/featured-products" className="transition-colors duration-200 text-sm hover:opacity-80"
+                      style={{ color: '#E53935', opacity: 0.7 }}>
                   المنتجات المميزة
                 </Link>
               </li>
-             
             </ul>
           </div>
 
           {/* قسم التواصل الاجتماعي */}
           <div className="md:col-span-1">
-            <h3 className="text-lg font-bold mb-4 text-primary-orange">تابعنا على</h3>
+            <h3 className="text-lg font-bold mb-4" style={{ color: '#E53935' }}>تابعنا على</h3>
             <div className="flex space-x-4 space-x-reverse mb-4">
               {/* واتساب */}
               <a
                 href="https://wa.me/966999999999"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 shadow-md"
+                className="w-10 h-10 rounded-full bg-[#e6403c] flex items-center justify-center transition-all duration-300 transform hover:scale-110"
+             
                 aria-label="WhatsApp"
               >
                 <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -85,7 +103,8 @@ function Footer() {
                 href="https://facebook.com/mamahieam"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 shadow-md"
+                className="w-10 h-10 rounded-full bg-[#e6403c] flex items-center justify-center transition-all duration-300 transform hover:scale-110"
+             
                 aria-label="Facebook"
               >
                 <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -98,7 +117,8 @@ function Footer() {
                 href="https://instagram.com/mamahieam"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 shadow-md"
+                className="w-10 h-10 rounded-full bg-[#e6403c] flex items-center justify-center transition-all duration-300 transform hover:scale-110"
+        
                 aria-label="Instagram"
               >
                 <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -109,20 +129,22 @@ function Footer() {
             
             {/* معلومات الاتصال */}
             <div className="space-y-2">
-              <p className="text-dark-blue/70 text-sm">
-                <span className="font-semibold text-primary-orange">الهاتف:</span> 966999999999+
+              <p className="text-sm">
+                <span className="font-semibold" style={{ color: '#E53935' }}>الهاتف:</span> 
+                <span style={{ color: '#E53935', opacity: 0.7 }}> 966999999999+</span>
               </p>
-              <p className="text-dark-blue/70 text-sm">
-                <span className="font-semibold text-primary-orange">البريد:</span> info@mamahieam.com
+              <p className="text-sm">
+                <span className="font-semibold" style={{ color: '#E53935' }}>البريد:</span> 
+                <span style={{ color: '#E53935', opacity: 0.7 }}> info@mamahieam.com</span>
               </p>
             </div>
           </div>
         </div>
 
         {/* خط الفاصل */}
-        <div className="border-t border-primary-orange/30 mt-8 pt-6">
+        <div className="border-t mt-8 pt-6" style={{ borderColor: '#F5F5F5' }}>
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-dark-blue/70 text-sm mb-4 md:mb-0">
+            <p className="text-sm mb-4 md:mb-0" style={{ color: '#E53935', opacity: 0.7 }}>
               &copy; {currentYear} ماما هيام. جميع الحقوق محفوظة.
             </p>
             <div className="flex space-x-4 space-x-reverse">

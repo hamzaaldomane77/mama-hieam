@@ -33,7 +33,7 @@ function Header() {
           <CartIcon />
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)} 
-            className=" focus:outline-none ml-2 text-primary-orange transition-colors"
+            className=" focus:outline-none ml-2 text-primary-orange "
             aria-label="Toggle menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

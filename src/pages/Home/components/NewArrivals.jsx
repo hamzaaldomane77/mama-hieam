@@ -34,7 +34,8 @@ function ProductCard({ product, index }) {
     >
       <Link
         to={`/products/${product.id}`}
-        className="block bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer"
+        className="block bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-105 cursor-pointer border border-gray-100"
+        style={{ backgroundColor: '#FFFFFF' }}
       >
         <div className="relative">
           <img src={product.images[0]} alt={product.name} className="w-full h-48 object-cover" />
@@ -42,7 +43,8 @@ function ProductCard({ product, index }) {
           {/* شارات المنتج */}
           {product.featured && (
             <div className="absolute top-2 right-2">
-              <span className="bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+              <span className="text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg"
+                    style={{ backgroundColor: '#A7D8F0' }}>
                 مميز
               </span>
             </div>
@@ -50,8 +52,8 @@ function ProductCard({ product, index }) {
         </div>
         
         <div className="p-4">
-          <h3 className="text-lg font-semibold text-dark-blue mb-2 line-clamp-2">{product.name}</h3>
-          <p className="text-primary-orange font-bold text-xl">{product.price} ر.س</p>
+          <h3 className="text-lg font-semibold mb-2 line-clamp-2" style={{ color: '#E53935' }}>{product.name}</h3>
+          <p className="font-bold text-xl" style={{ color: '#E53935' }}>{product.price} ل.س</p>
         </div>
       </Link>
     </motion.div>
@@ -131,13 +133,17 @@ function NewArrivals() {
 
   if (error) {
     return (
-      <section className="py-12 bg-gradient-to-br from-white via-light-orange/10 to-cream-beige/30">
-        <div className="container mx-auto px-4">
+      <section className="py-12" style={{ backgroundColor: '#FFFFFF' }}>
+        {/* خلفية ملونة طفولية */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-pink-50/30 to-yellow-50/30"></div>
+        
+        <div className="container mx-auto px-4 relative z-10">
           <div className="text-center">
-            <p className="text-red-600 mb-4">{error}</p>
+            <p className="mb-4" style={{ color: '#E53935' }}>{error}</p>
             <button 
               onClick={refreshProducts}
-              className="bg-primary-orange hover:opacity-90 text-white font-bold py-2 px-6 rounded-lg shadow transition duration-300"
+                                className="text-white font-bold py-2 px-6 rounded-lg transition duration-300"
+              style={{ backgroundColor: '#E53935' }}
             >
               إعادة المحاولة
             </button>
@@ -152,14 +158,28 @@ function NewArrivals() {
   }
 
   return (
-    <section className="py-12 bg-gradient-to-br from-white via-light-orange/10 to-cream-beige/30">
-      <div className="container mx-auto px-4">
+    <section className="py-12 relative overflow-hidden" style={{ backgroundColor: '#FFFFFF' }}>
+      {/* خلفية ملونة طفولية */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/40 via-pink-50/30 to-yellow-50/40"></div>
+      
+      {/* طبقة تدرج إضافية */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-green-50/30 via-transparent to-blue-50/30"></div>
+      
+      {/* عناصر زخرفية */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-10 right-20 w-64 h-64 rounded-full blur-3xl" style={{ backgroundColor: '#A7D8F0', opacity: 0.3 }}></div>
+        <div className="absolute bottom-10 left-20 w-48 h-48 rounded-full blur-3xl" style={{ backgroundColor: '#FADADD', opacity: 0.4 }}></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full blur-3xl" style={{ backgroundColor: '#FFF4B1', opacity: 0.2 }}></div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         <div className="flex items-center justify-center mb-8">
-          <h2 className="text-3xl font-bold text-center text-primary-orange">المجموعة الجديدة</h2>
+          <h2 className="text-3xl font-bold text-center" style={{ color: '#E53935' }}>المجموعة الجديدة</h2>
           {/* زر تحديث مخفي للمطور */}
           <button 
             onClick={refreshProducts}
-            className="mr-4 p-1 text-gray-400 hover:text-primary-orange transition-colors opacity-30 hover:opacity-100"
+            className="mr-4 p-1 text-gray-400 transition-colors opacity-30 hover:opacity-100"
+            style={{ color: '#E53935' }}
             title="تحديث المنتجات"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -175,7 +195,8 @@ function NewArrivals() {
         <div className="text-center mt-8">
           <Link 
             to="/products"
-            className="bg-primary-orange hover:opacity-90 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300 inline-block transform hover:scale-105"
+                            className="text-white font-bold py-3 px-8 rounded-full transition duration-300 inline-block transform hover:scale-105"
+            style={{ backgroundColor: '#E53935' }}
           >
             عرض جميع المنتجات
           </Link>
