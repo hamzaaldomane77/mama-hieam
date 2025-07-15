@@ -100,36 +100,7 @@ function NewArrivals() {
     loadNewProducts();
   }, []);
 
-  // دالة لإعادة تحميل المنتجات
-  const refreshProducts = async () => {
-    setError(null);
-    
-    try {
-      const response = await fetchNewProducts();
-      
-      console.log('🔄 Refresh - New Products API Response:', response.data);
-      
-      if (response.data && response.data.length > 0) {
-        // تصفية المنتجات للتأكد من أنها جديدة فقط
-        const newProducts = response.data.filter(product => product.new_collection === true);
-        
-        console.log('✅ Refresh - Filtered New Products:', newProducts);
-        
-        if (newProducts.length > 0) {
-          setProductsToShow(newProducts.slice(0, PRODUCTS_TO_SHOW));
-        } else {
-          console.log('⚠️ Refresh - No new products found after filtering');
-          setProductsToShow([]);
-        }
-      } else {
-        console.log('⚠️ Refresh - No products in API response');
-        setProductsToShow([]);
-      }
-    } catch (err) {
-      console.error('Error refreshing new products:', err);
-      setError('فشل في تحديث المنتجات الجديدة. يرجى المحاولة مرة أخرى.');
-    }
-  };
+
 
   if (error) {
     return (
@@ -176,16 +147,7 @@ function NewArrivals() {
         <div className="flex items-center justify-center mb-8">
           <h2 className="text-3xl font-bold text-center" style={{ color: '#E53935' }}>المجموعة الجديدة</h2>
           {/* زر تحديث مخفي للمطور */}
-          <button 
-            onClick={refreshProducts}
-            className="mr-4 p-1 text-gray-400 transition-colors opacity-30 hover:opacity-100"
-            style={{ color: '#E53935' }}
-            title="تحديث المنتجات"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
-          </button>
+     
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-5">
           {productsToShow.map((product, index) => (

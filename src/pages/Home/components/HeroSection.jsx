@@ -75,7 +75,7 @@ function HeroSection() {
 
             {/* Centered Content Container */}
             <div className="relative z-10 h-full text-white flex flex-col items-center justify-center text-center px-4">
-              <h1 className="text-5xl md:text-6xl font-bold mb-4 text-shadow-lg drop-shadow-2xl">{slide.title}</h1>
+              <h1 className="text-3xl md:text-5xl font-bold mb-4 text-shadow-lg drop-shadow-2xl">{slide.title}</h1>
               <p className="text-xl md:text-2xl text-shadow max-w-2xl mb-8 drop-shadow-lg">{slide.paragraph}</p>
               <Link
                 to="/products"

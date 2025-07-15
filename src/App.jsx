@@ -13,6 +13,7 @@ import OrderSuccessPage from './pages/checkout/OrderSuccessPage';
 import CartPanel from './components/CartPanel';
 import ScrollToTop from './components/ScrollToTop';
 import GlobalLoader from './components/GlobalLoader';
+import SiteSettings from './components/SiteSettings';
 import { useLoading } from './context/LoadingContext';
 import './App.css';
 
@@ -24,7 +25,10 @@ function App() {
 
   useEffect(() => {
     // منع التمرير أثناء التحميل الأولي
+    document.body.classList.add('loading');
     document.body.style.overflow = 'hidden';
+    // التمرير الفوري إلى أعلى الصفحة قبل التحميل
+    window.scrollTo(0, 0);
     
     // محاكاة تحميل التطبيق
     const loadApp = async () => {
@@ -35,15 +39,44 @@ function App() {
         // محاكاة تحميل لمدة 4 ثواني لتغطية تحميل الهوم بيج
         await new Promise(resolve => setTimeout(resolve, 4000));
         
+        // التمرير الفوري إلى أعلى الصفحة عند انتهاء التحميل
+        window.scrollTo(0, 0);
+        
         // إعادة تفعيل التمرير
+        document.body.classList.remove('loading');
         document.body.style.overflow = 'auto';
         
         setInitialLoading(false);
+        
+        // تأكيد إضافي للتمرير بعد انتهاء التحميل
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+        }, 100);
+        
+        // تأكيد إضافي بعد تأخير أطول
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+        }, 300);
       } catch (error) {
         console.error('Error loading app:', error);
         // حتى في حالة الخطأ، نخفي اللودر ونعيد التمرير
+        // التمرير الفوري إلى أعلى الصفحة عند انتهاء التحميل
+        window.scrollTo(0, 0);
+        
+        document.body.classList.remove('loading');
         document.body.style.overflow = 'auto';
+        
         setInitialLoading(false);
+        
+        // تأكيد إضافي للتمرير بعد انتهاء التحميل
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+        }, 100);
+        
+        // تأكيد إضافي بعد تأخير أطول
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+        }, 300);
       }
     };
 
@@ -51,17 +84,23 @@ function App() {
 
     // تنظيف عند unmount
     return () => {
+      document.body.classList.remove('loading');
       document.body.style.overflow = 'auto';
+      // التأكد من التمرير إلى الأعلى عند الخروج
+      window.scrollTo(0, 0);
     };
   }, []);
 
   // عرض Global Loader أثناء التحميل الأولي أو عند استخدام LoadingContext
   if (initialLoading) {
-    return <GlobalLoader message="مرحباً بك في ماما هيام" />;
+    return <GlobalLoader />;
   }
 
   return (
     <div className="App">
+      {/* تحميل إعدادات الموقع */}
+      <SiteSettings />
+      
       {/* Global Loader من LoadingContext */}
       {isLoading && <GlobalLoader message={loadingMessage} />}
       

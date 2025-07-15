@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useCart } from "../../context/CartContext";
 import { useLoading } from "../../context/LoadingContext";
 import { fetchProductById } from "../../services/api";
-
+import { MinusIcon, PlusIcon } from "lucide-react";
 function ProductDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -16,6 +16,7 @@ function ProductDetailPage() {
   const [error, setError] = useState(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [selectedSizes, setSelectedSizes] = useState([]);
 
   // جلب بيانات المنتج عند تحميل المكون
   useEffect(() => {
@@ -46,6 +47,15 @@ function ProductDetailPage() {
     return cartItems.some((item) => item.id === productId);
   };
 
+  // التعامل مع اختيار المقاسات
+  const handleSizeToggle = (size) => {
+    setSelectedSizes(prev => 
+      prev.includes(size) 
+        ? prev.filter(s => s !== size)
+        : [...prev, size]
+    );
+  };
+
   // إضافة المنتج إلى السلة
   const handleAddToCart = () => {
     if (!product) return;
@@ -54,7 +64,8 @@ function ProductDetailPage() {
       id: product.id,
       name: product.name,
       price: parseFloat(product.price),
-      image: product.images?.[0] || '/logo.png'
+      image: product.images?.[0] || '/logo.png',
+      sizes: selectedSizes.length > 0 ? selectedSizes : []
     };
     
     // إضافة المنتج للسلة بالكمية المحددة
@@ -74,7 +85,8 @@ function ProductDetailPage() {
       id: product.id,
       name: product.name,
       price: parseFloat(product.price),
-      image: product.images?.[0] || '/logo.png'
+      image: product.images?.[0] || '/logo.png',
+      sizes: selectedSizes.length > 0 ? selectedSizes : []
     };
     
     // إضافة المنتج للسلة بالكمية المحددة
@@ -191,7 +203,7 @@ function ProductDetailPage() {
       </div>
 
       <div className="relative z-10 pb-8">
-        {/* شريط التنقل العلوي */}
+        
         <div className="container mx-auto px-4 pt-24 pb-8">
           <nav className="flex items-center gap-2 text-sm mb-8" style={{ color: '#E53935', opacity: 0.7 }}>
             <Link to="/" className="hover:opacity-80 transition-colors">الرئيسية</Link>
@@ -321,7 +333,7 @@ function ProductDetailPage() {
                     )}
                   </div>
                   {hasDiscount && (
-                    <p className="font-medium" style={{ color: '#B8E4C9' }}>
+                    <p className="font-medium" style={{ color: '#a7d8f9' }}>
                       وفّر {(parseFloat(product.old_price) - parseFloat(product.price)).toFixed(2)} ل.س
                     </p>
                   )}
@@ -340,6 +352,45 @@ function ProductDetailPage() {
 
                 {/* الكمية وإضافة للسلة */}
                 <div className="space-y-6">
+                  {/* اختيار المقاسات */}
+                  {product.sizes && product.sizes.length > 0 && (
+                    <div>
+                      <label className="block text-sm font-medium mb-3" style={{ color: '#E53935' }}>
+                        المقاسات المتوفرة : يمكنك اختيار أكثر من مقاس
+                      </label>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {product.sizes.map((size, index) => (
+                          <label key={index} className="cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={selectedSizes.includes(size)}
+                              onChange={() => handleSizeToggle(size)}
+                              className="hidden"
+                            />
+                            <div
+                              className={`w-full p-3 rounded-lg border-2 text-center font-medium transition-all ${
+                                selectedSizes.includes(size)
+                                  ? 'text-white shadow-lg'
+                                  : 'text-gray-700 hover:border-red-300'
+                              }`}
+                              style={{
+                                backgroundColor: selectedSizes.includes(size) ? '#E53935' : '#F5F5F5',
+                                borderColor: selectedSizes.includes(size) ? '#E53935' : '#F5F5F5'
+                              }}
+                            >
+                              {size}
+                            </div>
+                          </label>
+                        ))}
+                      </div>
+                      {selectedSizes.length > 0 && (
+                        <p className="text-sm mt-2" style={{ color: '#E53935' }}>
+                          المقاسات المختارة: {selectedSizes.join(' - ')}
+                        </p>
+                      )}
+                    </div>
+                  )}
+                  
                   {/* اختيار الكمية */}
                   <div>
                     <label className="block text-sm font-medium mb-2" style={{ color: '#E53935' }}>
@@ -348,19 +399,15 @@ function ProductDetailPage() {
                     <div className="flex items-center gap-3">
                       <button
                         onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                        className="w-10 h-10 rounded-lg border-2 hover:text-white transition-all flex items-center justify-center"
-                        style={{ 
-                          borderColor: '#E53935', 
-                          color: '#E53935',
-                          backgroundColor: 'transparent'
-                        }}
-                        onMouseEnter={(e) => e.target.style.backgroundColor = '#E53935'}
+                        className="w-10 h-10 rounded-lg border-2 border-[#E53935] flex items-center justify-center"
+                     
+                        onMouseEnter={(e) => e.target.style.backgroundColor = '#fffff'}
                         onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
                       >
-                        -
+                      <MinusIcon />
                       </button>
-                      <span className="w-16 h-10 border rounded-lg flex items-center justify-center font-bold"
-                            style={{ backgroundColor: '#F5F5F5', borderColor: '#F5F5F5', color: '#E53935' }}>
+                      <span className="w-16 h-10 border border-[#E53935] rounded-lg flex items-center justify-center font-bold"
+               >
                         {quantity}
                       </span>
                       <button
@@ -371,10 +418,10 @@ function ProductDetailPage() {
                           color: '#E53935',
                           backgroundColor: 'transparent'
                         }}
-                        onMouseEnter={(e) => e.target.style.backgroundColor = '#E53935'}
+                        onMouseEnter={(e) => e.target.style.backgroundColor = '#fffff'}
                         onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
                       >
-                        +
+                      <PlusIcon />
                       </button>
                     </div>
                   </div>
@@ -397,14 +444,14 @@ function ProductDetailPage() {
                     <div className="flex flex-col sm:flex-row gap-4">
                       <button
                         onClick={handleAddToCart}
-                        className={`flex-1 py-4 px-6 rounded-xl font-bold text-lg transition-all text-white`}
+                        className={`flex-1 py-4 px-6 rounded-xl font-bold text-lg transition-all text-white `}
                         style={{ 
-                          backgroundColor: isInCart(product.id) ? '#B8E4C9' : '#e6403c'
+                          backgroundColor: isInCart(product.id) ? '#0CD54D' : '#CD0808'
                         }}
                       >
                         {isInCart(product.id) ? (
                           <>
-                            <span className="mr-2">✓</span> في السلة
+                            <span className="mr-2 ">✓</span> في السلة
                           </>
                         ) : (
                           "أضف للسلة"

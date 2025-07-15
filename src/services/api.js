@@ -291,6 +291,23 @@ export const fetchBranches = async () => {
   }
 };
 
+// ================================
+// APIs الخاصة بالإعدادات (Settings)
+// ================================
+
+/**
+ * جلب إعدادات الموقع
+ */
+export const fetchSettings = async () => {
+  try {
+    const response = await apiClient.get('/settings');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching settings:', error);
+    throw error;
+  }
+};
+
 // تصدير apiClient للاستخدام المباشر عند الحاجة
 export { apiClient };
 

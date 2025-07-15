@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 // إنشاء Context
 const LoadingContext = createContext();
@@ -14,6 +14,21 @@ export const useLoading = () => {
 
 // مكون Loading مع الألوان الجديدة
 const LoadingOverlay = ({ isLoading, message }) => {
+  useEffect(() => {
+    if (isLoading) {
+      // منع التمرير أثناء التحميل
+      document.body.style.overflow = 'hidden';
+      window.scrollTo(0, 0);
+    } else {
+      // إعادة تفعيل التمرير
+      document.body.style.overflow = 'auto';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isLoading]);
+  
   if (!isLoading) return null;
 
   return (
